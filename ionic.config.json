@@ -1,0 +1,7 @@
+{
+  "name": "PMDMO-Full_stack_aplication_Ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
