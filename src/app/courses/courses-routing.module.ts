@@ -5,8 +5,38 @@ import { CoursesPage } from './courses.page';
 
 const routes: Routes = [
   {
+    path: 'tabs',
+    component: CoursesPage,
+    children: [
+      {
+        path: 'all_courses',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./all-courses/all-courses.module').then(m => m.AllCoursesPageModule)
+          }
+        ]
+      },
+      {
+        path: 'own_courses',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./own-courses/own-courses.module').then(m => m.OwnCoursesPageModule)
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: '/courses/tabs/all_courses',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
     path: '',
-    component: CoursesPage
+    redirectTo: '/courses/tabs/all_courses',
+    pathMatch: 'full'
   }
 ];
 
