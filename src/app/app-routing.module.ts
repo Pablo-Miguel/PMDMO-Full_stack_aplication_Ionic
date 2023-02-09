@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CanLogInGuard } from './guards/can-log-in.guard';
 
 const routes: Routes = [
   {
@@ -7,7 +8,15 @@ const routes: Routes = [
   },
   {
     path: 'courses',
-    loadChildren: () => import('./courses/courses.module').then( m => m.CoursesPageModule)
+    loadChildren: () => import('./pages/courses/courses.module').then( m => m.CoursesPageModule),
+    canActivate: [CanLogInGuard]
+  },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
+  },
+  {
+    path: '*', redirectTo: 'courses', pathMatch: 'full'
   }
 ];
 

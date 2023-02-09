@@ -8,7 +8,7 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/courses/tabs/all_courses">
+          <ion-item lines="none" [routerLink]="['/courses', 'tabs', 'all_courses']">
             <ion-icon name="globe-outline" slot="start"></ion-icon>
             <ion-label>Descubrir cursos</ion-label>
           </ion-item>
@@ -19,7 +19,7 @@
             <ion-label>Taller</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
+        <ion-menu-toggle (click)="auth.onLogOut()">
           <ion-item lines="none" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>
@@ -28,18 +28,6 @@
       </ion-list>
     </ion-content>
   </ion-menu>
-  <div class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      Tap the button in the toolbar to open the menu.
-    </ion-content>
-  </div>
+  <div class="ion-page" id="main-content"></div>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OwnCoursesPageRoutingModule } from './own-courses-routing.module';
+import { SignInPageRoutingModule } from './sign-in-routing.module';
 
-import { OwnCoursesPage } from './own-courses.page';
+import { SignInPage } from './sign-in.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OwnCoursesPageRoutingModule
+    SignInPageRoutingModule
   ],
-  declarations: [OwnCoursesPage]
+  declarations: [SignInPage]
 })
-export class OwnCoursesPageModule {}
+export class SignInPageModule {}

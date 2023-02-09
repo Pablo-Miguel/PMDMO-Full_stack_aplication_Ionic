@@ -5,8 +5,11 @@
     </ion-buttons>
     <ion-title>Mis cursos</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Filtrar cursos..."></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <course-item *ngFor="let course of courses" [course]="course"></course-item>
 </ion-content>
