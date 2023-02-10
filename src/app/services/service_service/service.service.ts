@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from '../auth_service/auth.service';
+import { CartService } from '../cart_service/cart.service';
 import { CoursesService } from '../courses_service/courses.service';
 import { UsersService } from '../users_service/users.service';
 
@@ -8,28 +10,30 @@ import { UsersService } from '../users_service/users.service';
 })
 export class ServiceService {
 
-  users!: User[];
+  cart!: Cart[];
   courses!: Course[];
 
-  constructor(private usersService: UsersService, private coursesService: CoursesService) {
-    usersService.getUsers$().subscribe(u => {
-      this.users = u;
+  constructor(private usersService: UsersService, private cartService: CartService, private coursesService: CoursesService) {
+    cartService.getCart$().subscribe(u => {
+      this.cart = u;
     });
     coursesService.getCourses$().subscribe(c => {
       this.courses = c;
     });
   }
 
-  getUsers$(): Observable<User[]>{
-    return this.usersService.getUsers$();
-  }
-
-  getCourses$(): Observable<Course[]>{
+  getCourses(): Observable<Course[]> {
     return this.coursesService.getCourses$();
   }
 
-  getUserCourses(user: User): Course[]{
-    return this.courses.filter(c => c.id_user === user.id);
+  getOwnCourses(): Course[] {
+    return this.coursesService.getOwnCourses();
+  }
+
+  getPaidCourses(): Course[] {
+    return this.courses.filter(c => {
+      this.cart.some(ca => ca.id_course == c.id)
+    });
   }
 
 }

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AllCoursesPageRoutingModule } from './all-courses-routing.module';
 
 import { AllCoursesPage } from './all-courses.page';
+import { CourseItemComponent } from 'src/app/components/course-item/course-item.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AllCoursesPageRoutingModule
+    AllCoursesPageRoutingModule,
+    CourseItemComponent
   ],
   declarations: [
     AllCoursesPage
