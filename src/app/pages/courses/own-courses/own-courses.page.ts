@@ -11,7 +11,6 @@ export class OwnCoursesPage implements OnInit {
   courses!: Course[];
 
   constructor(public service: ServiceService) {
-    this.courses = service.getPaidCourses();
   }
 
   ngOnInit() {

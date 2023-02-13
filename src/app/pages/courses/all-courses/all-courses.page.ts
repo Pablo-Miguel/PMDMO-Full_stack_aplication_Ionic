@@ -11,9 +11,6 @@ export class AllCoursesPage implements OnInit {
   courses!: Course[];
 
   constructor(public service: ServiceService) {
-    service.getCourses$().subscribe(c => {
-      this.courses = c;
-    });
   }
 
   ngOnInit() {
