@@ -35,4 +35,8 @@ declare global {
         error: string
     }
 
+    type Status = {
+        status: string
+    }
+
 }

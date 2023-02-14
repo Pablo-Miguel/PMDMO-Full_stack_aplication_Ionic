@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth_service/auth.service';
 import { MyHttpService } from 'src/app/services/my_http_service/my-http.service';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.page.html',
-  styleUrls: ['./sign-in.page.scss'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.page.html',
+  styleUrls: ['./sign-up.page.scss'],
 })
-export class SignInPage implements OnInit {
+export class SignUpPage implements OnInit {
 
-  frmLogIn!: FormGroup;
+  frmSignUp!: FormGroup;
+  firstName!: FormControl;
+  lastName!: FormControl;
   email!: FormControl;
   password!: FormControl;
+
   hasLoggedIn: boolean = false;
 
   constructor(
@@ -25,13 +27,14 @@ export class SignInPage implements OnInit {
 
   }
 
-  logIn(): void {
-    if(this.frmLogIn.valid){
-      this.http.logIn(this.email.value, this.password.value).subscribe(
+  signUp() {
+    if(this.frmSignUp.valid) {
+      this.http.signUp(this.firstName.value, this.lastName.value, this.email.value, this.password.value).subscribe(
         (data: UserToken) => {
-          this.frmLogIn.reset();
+          this.frmSignUp.reset();
           this.hasLoggedIn = false;
           this.auth.logIn(data);
+          this.frmSignUp.reset();
         },
         (error: ApiError) => {
           this.hasLoggedIn = true;
@@ -46,6 +49,8 @@ export class SignInPage implements OnInit {
 
     let errors = "";
 
+    if(this.firstName.hasError('required')) errors += "- Nombre: Requerido <br />";
+    if(this.lastName.hasError('required')) errors += "- Apellidos: Requerido <br />";
     if(this.email.hasError('required')) errors += "- Correo: Requerido <br />";
     if(this.email.hasError('email')) errors += "- Correo: El correo es incorrecto <br />";
     if(this.password.hasError('required')) errors += "- Contraseña: Requerido <br />";
@@ -61,6 +66,12 @@ export class SignInPage implements OnInit {
   }
 
   ngOnInit() {
+    this.firstName = new FormControl('', [
+      Validators.required
+    ]);
+    this.lastName = new FormControl('', [
+      Validators.required
+    ]);
     this.email = new FormControl('', [
       Validators.required,
       Validators.email
@@ -70,7 +81,9 @@ export class SignInPage implements OnInit {
       Validators.minLength(8)
     ]);
     
-    this.frmLogIn = new FormGroup({
+    this.frmSignUp = new FormGroup({
+      firstName: this.firstName,
+      lastName: this.lastName,
       email: this.email,
       password: this.password
     });

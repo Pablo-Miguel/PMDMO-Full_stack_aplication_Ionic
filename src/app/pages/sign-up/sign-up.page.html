@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrarse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrarse</ion-card-title>
+      <ion-card-subtitle>Bienvenido a Udemy!</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="frmSignUp" novalidate>
+        <ion-item color="no-color">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="firstName" type="text" name="firstName"></ion-input>
+        </ion-item>
+
+        <ion-item color="no-color">
+          <ion-label position="floating">Apellidos</ion-label>
+          <ion-input formControlName="lastName" type="text" name="lastName"></ion-input>
+        </ion-item>
+
+        <ion-item color="no-color">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email" type="email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item color="no-color">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password" name="password"></ion-input>
+        </ion-item>
+        
+        <ion-button (click)="signUp()" color="light" expand="block">Registrarse</ion-button>
+      </form>
+      <div class="register_text" *ngIf="hasLoggedIn">
+        <ion-text color="danger">Ya existe una cuenta vinculada con este correo!</ion-text>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Udemy</ion-title>
+  </ion-toolbar>
+</ion-footer>

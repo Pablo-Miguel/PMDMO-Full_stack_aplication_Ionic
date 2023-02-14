@@ -12,11 +12,15 @@ export class AuthService {
   private logedIn: boolean = false;
 
   constructor(private router: Router, private storage: MyStorageService, private http: MyHttpService) {
+    this.checkStatusLogIn();  
+  }
+
+  checkStatusLogIn(): void {
     this.http.whoAmI().subscribe(
       (user: User) => {
         this.currentUser = user;
         this.logedIn = true;
-        router.navigate(['']);
+        this.router.navigate(['']);
       },
       (error: ApiError) => {
         this.logedIn = false;
@@ -44,7 +48,10 @@ export class AuthService {
   }
 
   onLogOut(): void {
-
+    this.storage.removeToken();
+    this.currentUser = null;
+    this.logedIn = false;
+    this.router.navigate(['/sign-in']);
   }
 
 }

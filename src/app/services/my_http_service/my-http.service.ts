@@ -22,11 +22,11 @@ export class MyHttpService {
     return this.http.get<User>('http://127.0.0.1:3000/users/whoami');
   }
 
-  signUp(user: User): void {
-    
+  signUp(firstName: string, lastName: string, email: string, password: string): Observable<UserToken> {
+    return this.http.post<UserToken>('http://127.0.0.1:3000/users/signup', {firstName, lastName, email, password});
   }
   
-  logOut(): void {
-    
+  logOut(): Observable<Status> {
+    return this.http.get<Status>('http://127.0.0.1:3000/users/logout');
   }
 }

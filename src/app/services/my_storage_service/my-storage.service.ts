@@ -14,9 +14,7 @@ export class MyStorageService {
   }
 
   setToken(token: string): void {
-    console.log(token);
     localStorage.setItem('token', token);
-    console.log(localStorage.getItem('token'));
   }
 
   removeToken(): void {
