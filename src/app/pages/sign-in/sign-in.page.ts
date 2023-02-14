@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth_service/auth.service';
+import { MyHttpService } from 'src/app/services/my_http_service/my-http.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,13 +17,25 @@ export class SignInPage implements OnInit {
   password!: FormControl;
   hasLoggedIn: boolean = false;
 
-  constructor(public auth: AuthService, private alertController: AlertController, private router: Router) { 
+  constructor(
+    public auth: AuthService, 
+    private alertController: AlertController, 
+    private http: MyHttpService
+  ) { 
 
   }
 
   logIn(): void {
     if(this.frmLogIn.valid){
-      this.hasLoggedIn = !this.auth.logIn(this.email.value, this.password.value);;
+      this.http.logIn(this.email.value, this.password.value).subscribe(
+        (data: UserToken) => {
+          console.log(data);
+          this.auth.logIn(data);
+        },
+        (error: ApiError) => {
+          this.hasLoggedIn = true;
+        }
+      );
     } else {
       this.presentAlert();
     }

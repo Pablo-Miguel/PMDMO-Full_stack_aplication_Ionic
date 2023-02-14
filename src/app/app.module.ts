@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MyInterceptorService } from './services/my_interceptor_service/my-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,11 @@ import { HttpClientModule } from '@angular/common/http';
     { 
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
+    },
+    {
+      provide: 'HTTP_INTERCEPTORS',
+      useClass: MyInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [

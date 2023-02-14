@@ -3,27 +3,36 @@ export {};
 declare global {
 
     type User = {
-        id: String,
-        firstName: String,
-        lastName: String,
-        email: String
+        id: string,
+        firstName: string,
+        lastName: string,
+        email: string
     }
 
     type Cart = {
-        id: String,
-        paid: Number,
+        id: string,
+        paid: number,
         date: Date,
         user: User,
         course: Course
     }
 
     type Course = {
-        id: String,
-        name: String,
-        description: String,
+        id: string,
+        name: string,
+        description: string,
         cre8_date: Date,
-        price: Number,
-        author: String
+        price: number,
+        author: string
+    }
+
+    type UserToken = {
+        user: User,
+        token: string
+    }
+
+    type ApiError = {
+        error: string
     }
 
 }

@@ -8,42 +8,43 @@ import { MyStorageService } from '../my_storage_service/my-storage.service';
 })
 export class AuthService {
   
-  private logedIn: Boolean
+  private currentUser: User | null = null;
+  private logedIn: boolean = false;
 
   constructor(private router: Router, private storage: MyStorageService, private http: MyHttpService) {
-    if(storage.getToken() != null){
-      this.logedIn = true;
-    } else {
-      this.logedIn = false;
-    }
+    this.http.whoAmI().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+        this.logedIn = true;
+        router.navigate(['']);
+      },
+      (error: ApiError) => {
+        this.logedIn = false;
+      }
+    );
   }
 
-  isLogedIn(): Boolean {
+  whoAmI(): User | null {
+    return this.currentUser;
+  }
+
+  isLogedIn(): boolean {
     return this.logedIn;
   }
 
-  logIn(email: string, password: string): boolean {
-    if(this.http.logIn(email, password)){
-      this.logedIn = true;
-      this.router.navigate(['']);
-      return true;
-    }
-    return false;
+  logIn(userToken: UserToken): void {
+    this.storage.setToken(userToken.token);
+    this.currentUser = userToken.user;
+    this.logedIn = true;
+    this.router.navigate(['']);
   }
 
   onLogIn(): void {
-    if(this.http.whoAmI() != null){
-      this.logedIn = true;
-      this.router.navigate(['']);
-    } else {
-      this.onLogOut();
-    }
+
   }
 
   onLogOut(): void {
-    this.http.logOut();
-    this.logedIn = false;
-    this.router.navigate(['/sign-in']);
+
   }
 
 }

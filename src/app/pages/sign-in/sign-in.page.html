@@ -25,17 +25,18 @@
         
         <ion-button (click)="logIn()" color="light" expand="block">Iniciar Sesion</ion-button>
       </form>
+      <div class="register_text" *ngIf="hasLoggedIn">
+        <ion-text color="danger">Correo o contraseña incorrectos</ion-text>
+      </div>
     </ion-card-content>
   </ion-card>
-  <div class="register_text" *ngIf="hasLoggedIn">
-    <ion-text color="danger">Correo o contraseña incorrectos</ion-text>
-    <br/><br/>
+  <div class="register_text">
     <ion-text>No tiene cuenta aún? <a>Registrarse</a></ion-text>
   </div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Udemy - Pablo Miguel del Castillo Barba</ion-title>
+    <ion-title>Udemy</ion-title>
   </ion-toolbar>
 </ion-footer>
