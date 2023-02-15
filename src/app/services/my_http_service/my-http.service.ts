@@ -49,4 +49,12 @@ export class MyHttpService {
   buyCourse(courseId: string, paid: number): Observable<Cart> {
     return this.http.post<Cart>(`http://127.0.0.1:3000/cart/addtocart/${courseId}`, { paid: paid });
   }
+
+  updateCourse(courseId: string, name: string, description: string, price: number): Observable<Course> {
+    return this.http.put<Course>(`http://127.0.0.1:3000/courses/updatecourse/${courseId}`, {name, description, price});
+  }
+
+  deleteCourse(courseId: string): Observable<Course> {
+    return this.http.delete<Course>(`http://127.0.0.1:3000/courses/deletecourse/${courseId}`);
+  }
 }

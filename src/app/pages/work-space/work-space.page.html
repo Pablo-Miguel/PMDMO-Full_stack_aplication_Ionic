@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button fill="outline" id="open-modal">
+      <ion-button fill="outline" (click)="createCourse()">
         Crear curso
         <ion-icon slot="end" name="create"></ion-icon>
       </ion-button>
@@ -17,7 +17,12 @@
 </ion-header>
 
 <ion-content>
-  <course-item *ngFor="let course of courses" [course]="course" [owner]="true"></course-item>
+  <course-item 
+    *ngFor="let course of courses" 
+    [course]="course" 
+    [owner]="true" 
+    (updateEmitter)="updateCourse($event)" 
+    (refresh)="refreshPage()"></course-item>
   <div class="txtEmpty">
     <ion-text *ngIf="courses.length == 0">No has creado un curso aún!</ion-text>
   </div>
@@ -30,9 +35,9 @@
         <ion-buttons slot="start">
           <ion-button (click)="cancel()">Cancel</ion-button>
         </ion-buttons>
-        <ion-title>Crear curso</ion-title>
+        <ion-title>{{modal_title}}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="confirm()" [strong]="true">Crear</ion-button>
+          <ion-button (click)="confirm()" [strong]="true">{{modal_btn}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>

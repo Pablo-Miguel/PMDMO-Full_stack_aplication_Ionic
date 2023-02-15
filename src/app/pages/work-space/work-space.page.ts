@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { MyHttpService } from 'src/app/services/my_http_service/my-http.service';
@@ -13,6 +12,11 @@ import { MyHttpService } from 'src/app/services/my_http_service/my-http.service'
 export class WorkSpacePage implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
+  modal_title: string = "Crear curso";
+  modal_btn: string = "Crear";
+  updating: boolean = false;
+
+  activeCourse!: Course;
 
   frmCourse!: FormGroup;
   name!: FormControl;
@@ -40,26 +44,62 @@ export class WorkSpacePage implements OnInit {
     }
   }
 
+  createCourse(){
+    this.frmCourse.reset();
+    this.updating = false;
+    this.modal_title = "Crear curso";
+    this.modal_btn = "Crear";
+    this.modal.present();
+  }
+
+  updateCourse(course: Course) {
+    this.frmCourse.reset();
+    this.activeCourse = course;
+    this.name.setValue(course.name);
+    this.description.setValue(course.description);
+    this.price.setValue(course.price);
+    this.updating = true;
+    this.modal_title = "Actualizar curso";
+    this.modal_btn = "Actualizar";
+    this.modal.present();
+  }
+
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
-      this.http.createCourse(this.name.value, this.description.value, this.price.value).subscribe(
-        (data: Course) => {
-          console.log(data);
-        },
-        (error: any) => {
-          this.presentAlertCourse();
-        }
-      );
-      
-      this.http.getCoursesWorkSpace().subscribe(
-        (data: Course[]) => {
-          this.courses = data;
-        }
-      );
+      if(!this.updating){
+        this.http.createCourse(this.name.value, this.description.value, this.price.value).subscribe(
+          (data: Course) => {
+            console.log(data);
+          },
+          (error: any) => {
+            this.presentAlertCreateCourse();
+          }
+        );
+      } else {
+        this.http.updateCourse(this.activeCourse._id, this.name.value, this.description.value, this.price.value).subscribe(
+          (data: Course) => {
+            console.log(data);
+          },
+          (error: any) => {
+            this.presentAlertUpdateCourse();
+          }
+        );
+      }
+
+      this.refreshPage();
 
       this.frmCourse.reset();
     }
+  }
+
+  refreshPage() {
+    this.http.getCoursesWorkSpace().subscribe(
+      (data: Course[]) => {
+        console.log(data);
+        this.courses = data;
+      }
+    );
   }
 
   async presentAlert() {
@@ -81,11 +121,22 @@ export class WorkSpacePage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertCourse() {
+  async presentAlertCreateCourse() {
 
     const alert = await this.alertController.create({
       header: 'Ha ocurrido un error',
       message: 'El curso no se ha podido crear',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertUpdateCourse() {
+
+    const alert = await this.alertController.create({
+      header: 'Ha ocurrido un error',
+      message: 'El curso no se ha podido actualizar',
       buttons: ['OK'],
     });
 

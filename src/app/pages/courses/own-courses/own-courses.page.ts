@@ -15,6 +15,10 @@ export class OwnCoursesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshCourses();
+  }
+
+  refreshCourses(){
     this.http.getOwnCourses().subscribe(
       (data: Course[]) => {
         this.courses = data;
