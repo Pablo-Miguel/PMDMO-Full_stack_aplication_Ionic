@@ -37,4 +37,16 @@ export class MyHttpService {
   getCoursesWorkSpace(): Observable<Course[]> {
     return this.http.get<Course[]>('http://127.0.0.1:3000/courses/mycoursesworkspace');
   }
+
+  getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('http://127.0.0.1:3000/courses/allcourses');
+  }
+
+  getOwnCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('http://127.0.0.1:3000/courses/mycoursescart');
+  }
+
+  buyCourse(courseId: string, paid: number): Observable<Cart> {
+    return this.http.post<Cart>(`http://127.0.0.1:3000/cart/addtocart/${courseId}`, { paid: paid });
+  }
 }

@@ -12,4 +12,7 @@
 
 <ion-content>
   <course-item *ngFor="let course of courses" [course]="course"></course-item>
+  <div class="txtEmpty">
+    <ion-text *ngIf="courses.length == 0">No hay cursos en venta!</ion-text>
+  </div>
 </ion-content>

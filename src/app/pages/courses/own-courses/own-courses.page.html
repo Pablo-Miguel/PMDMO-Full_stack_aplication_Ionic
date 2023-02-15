@@ -11,5 +11,8 @@
 </ion-header>
 
 <ion-content>
-  <course-item *ngFor="let course of courses" [course]="course"></course-item>
+  <course-item *ngFor="let course of courses" [course]="course" [buy]="true"></course-item>
+  <div class="txtEmpty">
+    <ion-text *ngIf="courses.length == 0">No has comprado ningún curso aún!</ion-text>
+  </div>
 </ion-content>

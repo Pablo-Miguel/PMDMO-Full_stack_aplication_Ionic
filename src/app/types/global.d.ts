@@ -3,14 +3,14 @@ export {};
 declare global {
 
     type User = {
-        id: string,
+        _id: string,
         firstName: string,
         lastName: string,
         email: string
     }
 
     type Cart = {
-        id: string,
+        _id: string,
         paid: number,
         date: Date,
         user: User,
@@ -18,7 +18,7 @@ declare global {
     }
 
     type Course = {
-        id: string,
+        _id: string,
         name: string,
         description: string,
         cre8_date: Date,

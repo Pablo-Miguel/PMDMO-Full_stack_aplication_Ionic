@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MyHttpService } from 'src/app/services/my_http_service/my-http.service';
 
 @Component({
   selector: 'app-all-courses',
@@ -7,13 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllCoursesPage implements OnInit {
 
-  courses!: Course[];
+  courses: Course[];
 
-  constructor() {
+  constructor(private http: MyHttpService) {
+    this.courses = [];
   }
 
   ngOnInit() {
-    
+    this.http.getAllCourses().subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+      }
+    );
   }
 
 }
