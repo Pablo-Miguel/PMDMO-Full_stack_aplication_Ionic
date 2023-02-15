@@ -29,4 +29,12 @@ export class MyHttpService {
   logOut(): Observable<Status> {
     return this.http.get<Status>('http://127.0.0.1:3000/users/logout');
   }
+
+  createCourse(name: string, description: string, price: number): Observable<Course> {
+    return this.http.post<Course>('http://127.0.0.1:3000/courses/createcourse', {name, description, price});
+  }
+
+  getCoursesWorkSpace(): Observable<Course[]> {
+    return this.http.get<Course[]>('http://127.0.0.1:3000/courses/mycoursesworkspace');
+  }
 }

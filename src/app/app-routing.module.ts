@@ -20,8 +20,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
   },
   {
+    path: 'work-space',
+    loadChildren: () => import('./pages/work-space/work-space.module').then( m => m.WorkSpacePageModule)
+  },
+  {
     path: '*', redirectTo: 'courses', pathMatch: 'full'
   }
+
 ];
 
 @NgModule({
