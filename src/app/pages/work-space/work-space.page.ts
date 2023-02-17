@@ -87,19 +87,8 @@ export class WorkSpacePage implements OnInit {
         );
       }
 
-      this.refreshPage();
-
       this.frmCourse.reset();
     }
-  }
-
-  refreshPage() {
-    this.http.getCoursesWorkSpace().subscribe(
-      (data: Course[]) => {
-        console.log(data);
-        this.courses = data;
-      }
-    );
   }
 
   async presentAlert() {
@@ -153,7 +142,9 @@ export class WorkSpacePage implements OnInit {
       description: this.description,
       price: this.price
     });
+  }
 
+  ionViewDidEnter() {
     this.http.getCoursesWorkSpace().subscribe(
       (data: Course[]) => {
         this.courses = data;

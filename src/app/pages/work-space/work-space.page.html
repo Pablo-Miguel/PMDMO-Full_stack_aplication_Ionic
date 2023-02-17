@@ -21,8 +21,7 @@
     *ngFor="let course of courses" 
     [course]="course" 
     [owner]="true" 
-    (updateEmitter)="updateCourse($event)" 
-    (refresh)="refreshPage()"></course-item>
+    (updateEmitter)="updateCourse($event)"></course-item>
   <div class="txtEmpty">
     <ion-text *ngIf="courses.length == 0">No has creado un curso aún!</ion-text>
   </div>

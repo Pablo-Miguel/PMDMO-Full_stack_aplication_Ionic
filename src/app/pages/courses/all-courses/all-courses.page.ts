@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component } from '@angular/core';
 import { MyHttpService } from 'src/app/services/my_http_service/my-http.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { MyHttpService } from 'src/app/services/my_http_service/my-http.service'
   templateUrl: './all-courses.page.html',
   styleUrls: ['./all-courses.page.scss'],
 })
-export class AllCoursesPage implements OnInit {
+export class AllCoursesPage {
 
   courses: Course[];
 
@@ -14,11 +14,7 @@ export class AllCoursesPage implements OnInit {
     this.courses = [];
   }
 
-  ngOnInit() {
-    this.refreshCourses();
-  }
-
-  refreshCourses() {
+  ionViewDidEnter() {
     this.http.getAllCourses().subscribe(
       (data: Course[]) => {
         this.courses = data;
